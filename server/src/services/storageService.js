@@ -45,6 +45,17 @@ class StorageService {
         })
     }
 
+    getDistricts() {
+       db.get(`SELECT *
+               FROM DISTRICT_ADDRESS`, (err, result) => {
+            if(err) {
+                return "Error occured while getting district address!";
+            }
+
+            return result;
+        }) 
+    }
+
     shutdown() {
         db.close( (error)=> {
             if(error) {
