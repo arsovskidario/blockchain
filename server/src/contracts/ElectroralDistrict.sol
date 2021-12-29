@@ -32,19 +32,24 @@ contract ElectoralDistrict {
 
     function getDistrictWinner() public view returns(string memory, int256 , int256) {
         int256 totalVotes=0;
-        int256 maxVotes=0;
+        int256 winnerVotes=0;
         string memory candidateWinner;
         for(uint i=0;i<candidatesName.length;i++) {
             totalVotes += candidateVoteCount[candidatesName[i]];
-            if(maxVotes < candidateVoteCount[candidatesName[i]]) {
-                maxVotes = candidateVoteCount[candidatesName[i]];
+            if(winnerVotes < candidateVoteCount[candidatesName[i]]) {
+                winnerVotes = candidateVoteCount[candidatesName[i]];
                 candidateWinner = candidatesName[i];
             }
         }
         
-        return (candidateWinner, maxVotes, totalVotes);
+        return (candidateWinner, winnerVotes, totalVotes);
     }
-    
+
+    function getDistrictCandidate(string memory candidateName) public returns(string memory, int256) {
+        require(isValidCandidate(candidate), "Candidate is not registered in this campaign!");
+        return (candidateName, candidateVoteCount[candidateName])
+    }
+
     function isValidCandidate(string memory candidate) private view returns(bool) {
         for(uint i=0;i<candidatesName.length;i++) {
             if(keccak256(bytes(candidatesName[i])) == keccak256(bytes(candidate))) {
