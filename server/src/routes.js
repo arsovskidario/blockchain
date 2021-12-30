@@ -8,4 +8,4 @@ router.get('/', (req, res) => {
 router.use('/districts', require('./controllers/districtsController'));
 router.use('/elections', require('./controllers/electionsController'))
 
-module.exports = router;
+module.exports = router; 

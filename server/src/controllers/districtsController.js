@@ -1,17 +1,15 @@
 const express = require('express');
-const storage = require('../services/storageService');
+const districtsData = require('../services/storageService');
 const router = express.Router({ mergeParams: true });
 
 const getDistricts = async (req, res) => {
-
-    //TODO: Should be global for entire project and shutdown() when project is shutdown 
-    //TODO: GET /name?arg=Kumanovo
-    //TODO: POST {name, address}
-    const storageService = new StorageService();
     try {
-        res.send(storageService.getDistricts());
-    } catch {
-        res.status(404).json({message: 'Something went wrong!'});
+        const districts = [{ address: '000458566', name: 'Vidin' }, { address: '552646', name: 'Pleven' }, { address: '85631351', name: 'Inovo' }];
+        console.log(await districtsData.getDistricts())
+        res.send(districts);
+    } catch (error) {
+        console.log(error)
+        res.status(404).json({ message: 'Something went wrong!' });
     }
 };
 
