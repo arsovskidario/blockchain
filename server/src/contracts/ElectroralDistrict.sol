@@ -45,9 +45,13 @@ contract ElectoralDistrict {
         return (candidateWinner, winnerVotes, totalVotes);
     }
 
-    function getDistrictCandidate(string memory candidateName) public returns(string memory, int256) {
+    function getDistrictCandidate(string memory candidate) public view returns(string memory, int256) {
         require(isValidCandidate(candidate), "Candidate is not registered in this campaign!");
-        return (candidateName, candidateVoteCount[candidateName])
+        return (candidate, candidateVoteCount[candidate]);
+    }
+
+    function getDistrictCandidates() public view returns(string[] memory) {
+        return candidatesName;
     }
 
     function isValidCandidate(string memory candidate) private view returns(bool) {

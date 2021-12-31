@@ -1,3 +1,4 @@
+const delay = 0;
 
 var $firstButton = $(".first"),
     $secondButton = $(".second"),
@@ -11,7 +12,7 @@ var $firstButton = $(".first"),
     $reset = $(".reset"),
     $ctr = $(".container");
 
-$.ajax('http://localhost:5000/districts', {
+$.ajax('http://localhost:5000/elections/candidates', {
     type: 'GET',
     headers: "Access-Control-Allow-Origin: *",
     async: true,
@@ -21,7 +22,7 @@ $.ajax('http://localhost:5000/districts', {
     $candidate.empty();
     $.each(data, function (key, value) {
         $candidate.append($("<option></option>")
-            .attr("value", value.address).text(value.name));
+            .attr("value", value.trim().toLowerCase()).text(value));
     });
 }).fail(function (error) {
     console.log(error);
@@ -29,14 +30,14 @@ $.ajax('http://localhost:5000/districts', {
 
 
 $firstButton.on("click", function (e) {
-    $(this).text("Saving...").delay(900).queue(function () {
+    $(this).text("Saving...").delay(delay).queue(function () {
         $ctr.addClass("center slider-two-active").removeClass("full slider-one-active");
     });
     e.preventDefault();
 });
 
 $secondButton.on("click", function (e) {
-    $(this).text("Saving...").delay(900).queue(function () {
+    $(this).text("Saving...").delay(delay).queue(function () {
         $ctr.addClass("full slider-three-active").removeClass("center slider-two-active slider-one-active");
         $name = $name.val();
         if ($name == "") {
@@ -56,6 +57,23 @@ $secondButton.on("click", function (e) {
 
 $thirdButton.on("click", function (e) {
     $(this).text("Saving...").queue(function () {
-        console.log('Fetching.....')
+        var data = {
+            'voter': $name,
+            'candidate': $candidate.find(":selected").text(),
+        };
+
+        $.ajax('http://localhost:5000/elections/vote', {
+            type: 'PUT',
+            data: JSON.stringify(data),
+            headers: "Access-Control-Allow-Origin: *",
+            async: true,
+            crossDomain: true,
+            contentType: 'application/json'
+        }).done(function () {
+            alert("Successful Vote! Brao suvesten si!!");
+        }).fail(function () {
+            alert("Wrong UCN or candidate!");
+            document.location.reload(true);
+        });
     });
 })

@@ -10,9 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.0",
     "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
     "express": "^4.17.2",
+    "solc": "^0.8.11",
     "sqlite": "^4.0.23",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "web3": "^1.6.1"
   }
 }
