@@ -21,8 +21,7 @@ const getDistrictAddress = (name) => {
 }
 
 const getDistricts = () => {
-    return getDb().get(`SELECT *
-               FROM DISTRICT_ADDRESS`);
+    return getDb().all(`SELECT NAME FROM "main"."DISTRICT_ADDRESS" LIMIT 0, 49999`, []);
 }
 
 module.exports = {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <!-- Meta Data -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="winnersPage.css" />
+  </head>
+
+  <div class="container">
+    <div class="container slider-one-active">
+      <div class="slider-ctr">
+        <div class="slider">
+          <form class="slider-form slider-one">
+            <h2>Please select district</h2>
+            <label class="input">
+                <select type="text" class="districts">
+                  <option value="vidin">Vidin</option>
+                  <option value="kumanovo">Kumanovo</option>
+                  <option value="durjanica">Durjanica</option>
+                  <option value="sofia">Sofia</option>
+                </select>
+              </label>
+            <button class="submit next">Results</button>
+          </form>
+          <div class="list-container">
+          <ul class='results-list'>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="winnersPage.js" type="text/javascript"></script>
+</html>

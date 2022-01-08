@@ -5,8 +5,7 @@ const router = express.Router({ mergeParams: true });
 
 const getDistricts = async (req, res) => {
     try {
-        const districts = [{ address: '000458566', name: 'Vidin' }, { address: '552646', name: 'Pleven' }, { address: '85631351', name: 'Inovo' }];
-        //console.log(await districtsData.getDistricts())
+        const districts = await districtsData.getDistricts();
         res.send(districts);
     } catch (error) {
         res.status(404).json({ message: 'Something went wrong!' });
@@ -15,9 +14,47 @@ const getDistricts = async (req, res) => {
 
 const getDistrictWinner = async (req, res) => {
     try {
-        const winner = await contractsService.getDistrictWinner();
+        const { district } = req.params;
+        //const winner = await contractsService.getDistrictWinner();
+        const districtAddress = await districtsData.getDistrictAddress(district);
+        const candidates = await contractsService.getDistrictCandidates(districtAddress.ADDRESS);
 
-        res.send(winner);
+        let candidatesResults = [];
+
+        for (let index = 0; index < candidates.length; index++) {
+            const candidateResult = await contractsService.getDistrictWinner(districtAddress.ADDRESS, candidates[index]);
+            candidatesResults.push({name: candidates[index], count: Number(candidateResult)});
+        }
+
+        candidatesResults = candidatesResults.sort((a, b) => {
+            return a.count - b.count;
+        })
+
+        res.send(candidatesResults);
+    } catch (error) {
+        res.status(404).json({ message: 'Something went wrong!' });
+    }
+};
+
+const getDistrictCandidates = async (req, res) => {
+    try {
+        const { district } = req.params;
+        const districtAddress = await districtsData.getDistrictAddress(district);
+        const candidates = await contractsService.getDistrictCandidates(districtAddress.ADDRESS);
+
+        res.send(candidates);
+    } catch (error) {
+        res.status(404).json({ message: 'Something went wrong!' });
+    }
+};
+
+const deployDistrict = async (req, res) => {
+    try {
+        const { voters, region } = req.body;
+
+        await contractsService.deployContract(region, voters);
+
+        res.send({ message: 'Yessss' });
     } catch (error) {
         res.status(404).json({ message: 'Something went wrong!' });
     }
@@ -25,5 +62,7 @@ const getDistrictWinner = async (req, res) => {
 
 router.get('/', getDistricts);
 router.get('/:district/winner', getDistrictWinner);
+router.get('/:district/candidates', getDistrictCandidates);
+router.post('/', deployDistrict);
 
 module.exports = router;

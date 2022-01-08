@@ -25,6 +25,7 @@ app.get('/', function (req, res) {
 const initialize = async () => {
     try {
         await initDb();
+        //await deployContract(DISTRICTS[2].NAME, DISTRICTS[2].VOTERS, CANDIDATES);
         await subscribeToContract(CURRENT_CONTRACT);
         app.listen(5000, () => console.log('App is running on port 5000'));
     } catch (error) {

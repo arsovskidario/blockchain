@@ -18,13 +18,17 @@
       <div class="steps">
         <div class="step step-one">
           <div class="liner"></div>
-          <span>Information</span>
+          <span>District</span>
         </div>
         <div class="step step-two">
           <div class="liner"></div>
-          <span>Vote</span>
+          <span>Information</span>
         </div>
         <div class="step step-three">
+          <div class="liner"></div>
+          <span>Vote</span>
+        </div>
+        <div class="step step-four">
           <div class="liner"></div>
           <span>Conclusion</span>
         </div>
@@ -33,11 +37,24 @@
         <div class="dot-move"></div>
         <div class="dot zero"></div>
         <div class="dot center"></div>
+        <div class="dot second-center"></div>
         <div class="dot full"></div>
       </div>
       <div class="slider-ctr">
         <div class="slider">
           <form class="slider-form slider-one">
+            <h2>Please enter your district</h2>
+            <label class="input">
+              <select type="text" class="districts">
+                <option value="vidin">Vidin</option>
+                <option value="kumanovo">Kumanovo</option>
+                <option value="durjanica">Durjanica</option>
+                <option value="sofia">Sofia</option>
+              </select>
+            </label>
+            <button class="pre-first next">Next Step</button>
+          </form>
+          <form class="slider-form slider-two">
             <h2>Please enter your unique identifier</h2>
             <label class="input">
               <input
@@ -48,21 +65,21 @@
             </label>
             <button class="first next">Next Step</button>
           </form>
-          <form class="slider-form slider-two">
+          <form class="slider-form slider-three">
             <h2>Please select candidates.</h2>
             <div class="label-ctr">
               <label class="input">
                 <select type="text" class="candidate">
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
+                  <option value="volvo">Volvo</option>
+                  <option value="saab">Saab</option>
+                  <option value="mercedes">Mercedes</option>
+                  <option value="audi">Audi</option>
                 </select>
               </label>
             </div>
             <button class="second next">Next Step</button>
           </form>
-          <div class="slider-form slider-three">
+          <div class="slider-form slider-four">
             <h2>Your Unique Citizen Number, <span class="UCN"></span></h2>
             <h3>Your choice, <span class="choice"></span></h3>
             <a

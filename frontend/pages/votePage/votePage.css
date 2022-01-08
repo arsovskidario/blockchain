@@ -78,11 +78,16 @@ button:active,
 }
 
 .step-two {
-	left: 50%;
+	left: 33%;
 	clip: rect(0, 0px, 25px, 0px);
 }
 
 .step-three {
+	left: 66%;
+	clip: rect(0, 0px, 25px, 0px);
+}
+
+.step-four {
 	left: 100%;
 	clip: rect(0, 0px, 25px, 0px);
 }
@@ -137,7 +142,12 @@ button:active,
 }
 
 .line .dot.center {
-	left: 50%;
+	left: 33%;
+	background: #bbb
+}
+
+.line .dot.second-center {
+	left: 66%;
 	background: #bbb
 }
 
@@ -153,7 +163,7 @@ button:active,
 
 .slider {
 	overflow: hidden;
-	width: 1200px;
+	width: 1600px;
 	-webkit-transition: .3s all ease;
 	transition: .3s all ease;
 	-webkit-transform: translate(0px) scale(1);
@@ -177,6 +187,13 @@ button:active,
 
 .container.slider-three-active .slider-one,
 .container.slider-three-active .slider-two {
+	-webkit-transform: scale(.5);
+	-ms-transform: scale(.5);
+	transform: scale(.5);
+}
+
+.container.slider-four-active .slider-one,
+.container.slider-four-active .slider-two {
 	-webkit-transform: scale(.5);
 	-ms-transform: scale(.5);
 	transform: scale(.5);
@@ -358,7 +375,7 @@ label.radio .emot .mouth.sad {
 /*	center */
 
 .container.center .line .dot-move {
-	left: 50%;
+	left: 33%;
 	-webkit-animation: .3s anim 1;
 }
 
@@ -380,6 +397,37 @@ label.radio .emot .mouth.sad {
 	width: 100%;
 }
 
+
+.container.second-center .line .dot-move {
+	left: 66%;
+	-webkit-animation: .3s anim 1;
+}
+
+.container.second-center .line .dot.second-center {
+	background: #5892fc;
+}
+
+.container.second-center .slider {
+	-webkit-transform: translate(-800px);
+	-ms-transform: translate(-800px);
+	transform: translate(-800px);
+}
+
+.container.second-center .step-two {
+	clip: rect(0, 100px, 25px, 0px);
+}
+
+.container.second-center .step-two,
+.container.second-center .step-three {
+	clip: rect(0, 100px, 25px, 0px);
+}
+
+.container.second-center .step-one .liner,
+.container.second-center .step-two .liner {
+	width: 100%;
+}
+
+
 .container.full .line .dot-move {
 	left: 100%;
 	-webkit-animation: .3s anim 1;
@@ -390,17 +438,19 @@ label.radio .emot .mouth.sad {
 }
 
 .container.full .slider {
-	-webkit-transform: translate(-800px);
-	-ms-transform: translate(-800px);
-	transform: translate(-800px);
+	-webkit-transform: translate(-1200px);
+	-ms-transform: translate(-1200px);
+	transform: translate(-1200px);
 }
 
 .container.full .step-two,
-.container.full .step-three {
+.container.full .step-three,
+.container.full .step-four {
 	clip: rect(0, 100px, 25px, 0px);
 }
 
 .container.full .step-one .liner,
-.container.full .step-two .liner {
+.container.full .step-two .liner,
+.container.full .step-three .liner {
 	width: 100%;
 }

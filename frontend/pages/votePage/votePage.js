@@ -10,35 +10,61 @@ var $firstButton = $(".first"),
     $UCN = $(".UCN"),
     $choice = $(".choice"),
     $reset = $(".reset"),
-    $ctr = $(".container");
+    $ctr = $(".container"),
+    $preFirst = $(".pre-first"),
+    $districts = $(".districts");
 
-$.ajax('http://localhost:5000/elections/candidates', {
+$.ajax('http://localhost:5000/districts', {
     type: 'GET',
     headers: "Access-Control-Allow-Origin: *",
     async: true,
     crossDomain: true,
     contentType: 'application/json'
 }).done(function (data) {
-    $candidate.empty();
+    $districts.empty();
     $.each(data, function (key, value) {
-        $candidate.append($("<option></option>")
-            .attr("value", value.trim().toLowerCase()).text(value));
+        $districts.append($("<option></option>")
+            .attr("value", value.NAME.trim().toLowerCase()).text(value.NAME));
     });
 }).fail(function (error) {
     console.log(error);
 });
 
+$preFirst.on("click", function (e) {
+    $(this).text("Saving...").delay(delay).queue(function () {
+        const district = $districts.find(":selected").text();
+
+        $.ajax(`http://localhost:5000/districts/${district}/candidates`, {
+            type: 'GET',
+            headers: "Access-Control-Allow-Origin: *",
+            async: true,
+            crossDomain: true,
+            contentType: 'application/json'
+        }).done(function (data) {
+            $candidate.empty();
+            $.each(data, function (key, value) {
+                $candidate.append($("<option></option>")
+                    .attr("value", value.trim().toLowerCase()).text(value));
+            });
+
+            $ctr.addClass("center slider-two-active").removeClass("full slider-one-active");
+        }).fail(function (error) {
+            console.log(error);
+        });
+    });
+    e.preventDefault();
+});
 
 $firstButton.on("click", function (e) {
     $(this).text("Saving...").delay(delay).queue(function () {
-        $ctr.addClass("center slider-two-active").removeClass("full slider-one-active");
+        $ctr.addClass("second-center slider-three-active").removeClass("center slider-two-active slider-one-active");
     });
     e.preventDefault();
 });
 
 $secondButton.on("click", function (e) {
     $(this).text("Saving...").delay(delay).queue(function () {
-        $ctr.addClass("full slider-three-active").removeClass("center slider-two-active slider-one-active");
+        $ctr.addClass("full slider-four-active").removeClass("second-center slider-three-active slider-two-active slider-one-active");
         $name = $name.val();
         if ($name == "") {
             $UCN.html("Anonymous!");
@@ -59,6 +85,7 @@ $thirdButton.on("click", function (e) {
     $(this).text("Saving...").queue(function () {
         var data = {
             'voter': $name,
+            'district': $districts.find(":selected").text(),
             'candidate': $candidate.find(":selected").text(),
         };
 

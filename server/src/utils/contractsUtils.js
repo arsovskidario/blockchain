@@ -30,7 +30,7 @@ const deployContract = async (districtName, voters, candidates) => {
         .send({ from: accounts[0], gas: '10000000' });
 
     console.log('Contract address: ', contract.options.address);
-    //await storageService.insertDistrictAddress(districtName, contract.options.address);
+    await storageService.insertDistrictAddress(districtName, contract.options.address);
     provider.engine.stop();
 };
 
@@ -38,6 +38,7 @@ const subscribeToContract = async (address, fileName='ElectroralDistrict.sol') =
     const { abi } = compileContract(fileName);
     accounts = await web3.eth.getAccounts();
     contract = await new web3.eth.Contract(abi, address);
+    return contract;
 };
 
 const getCurrentContract = () => {
